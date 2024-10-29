@@ -1,39 +1,118 @@
-{
-  "version": 2.0,
+  {
+	  "version": 2.0,
   "questions": [
+    
     {
-      "question": "This is a Sample Question 1?",
-      "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
-      },
-      "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
-      },
-      "correctAnswer": "a",
-      "difficulty": "beginner"
+        "question": "1. What is the output characteristic of an n-channel MOSFET?",
+        "answers": {
+            "a": "Variation of drain current with gate voltage",
+            "b": "Variation of drain current with drain-to-source voltage",
+            "c": "Variation of gate current with drain voltage",
+            "d": "Variation of gate-to-source voltage with temperature"
+        },
+        "correctAnswer": "b",
+        "difficulty": "beginner"
     },
     {
-      "question": "This is a Sample Question 2?",
-      "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
-      },
-      "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
-      },
-      "correctAnswer": "c",
-      "difficulty": "beginner"
+        "question": "2. In which region does the n-channel MOSFET behave like a variable resistor?",
+        "answers": {
+            "a": "Cutoff region",
+            "b": "Linear (ohmic) region",
+            "c": "Saturation region",
+            "d": "Breakdown region"
+        },
+        "correctAnswer": "b",
+        "difficulty": "intermediate"
+    },
+    {
+        "question": "3. What happens to the MOSFET in the cutoff region?",
+        "answers": {
+            "a": "The drain current is maximum",
+            "b": "The MOSFET acts as a short circuit",
+            "c": "The drain current is negligible or zero",
+            "d": "The gate current increases rapidly"
+        },
+        "correctAnswer": "c",
+        "difficulty": "beginner"
+    },
+    {
+        "question": "4. What condition defines the onset of the saturation region in an n-channel MOSFET?",
+        "answers": {
+            "a": "V_DS > V_G - V_T",
+            "b": "V_DS < V_G - V_T",
+            "c": "V_G < V_T",
+            "d": "V_G = 0"
+        },
+        "correctAnswer": "a",
+        "difficulty": "intermediate"
+    },
+    {
+        "question": "5. What is the primary factor controlling the drain current in the saturation region?",
+        "answers": {
+            "a": "Drain voltage",
+            "b": "Gate voltage",
+            "c": "Source current",
+            "d": "Oxide thickness"
+        },
+        "correctAnswer": "b",
+        "difficulty": "intermediate"
+    },
+    {
+        "question": "6. What is the role of the threshold voltage (V_T) in an n-channel MOSFET?",
+        "answers": {
+            "a": "It determines the maximum drain current",
+            "b": "It indicates the onset of conduction between drain and source",
+            "c": "It controls the source current",
+            "d": "It adjusts the gate-to-drain capacitance"
+        },
+        "correctAnswer": "b",
+        "difficulty": "beginner"
+    },
+    {
+        "question": "7. How does the drain current (I_D) vary with V_DS in the saturation region?",
+        "answers": {
+            "a": "It increases linearly",
+            "b": "It remains nearly constant",
+            "c": "It decreases exponentially",
+            "d": "It oscillates with frequency"
+        },
+        "correctAnswer": "b",
+        "difficulty": "intermediate"
+    },
+    {
+        "question": "8. Which parameter primarily influences the mobility (μ) in a MOSFET?",
+        "answers": {
+            "a": "Temperature",
+            "b": "Drain voltage",
+            "c": "Gate width",
+            "d": "Source resistance"
+        },
+        "correctAnswer": "a",
+        "difficulty": "advanced"
+    },
+    {
+        "question": "9. What happens to the n-channel MOSFET when V_G < V_T?",
+        "answers": {
+            "a": "The drain current increases exponentially",
+            "b": "The MOSFET enters the linear region",
+            "c": "The channel does not form, and the MOSFET remains off",
+            "d": "The source voltage becomes negative"
+        },
+        "correctAnswer": "c",
+        "difficulty": "beginner"
+    },
+    {
+        "question": "10. In which application is the n-channel MOSFET typically used in the saturation region?",
+        "answers": {
+            "a": "Voltage regulator",
+            "b": "Switching circuit",
+            "c": "Digital logic inverter",
+            "d": "Analog amplifier"
+        },
+        "correctAnswer": "d",
+        "difficulty": "advanced"
     }
+
+    
   ]
 }
