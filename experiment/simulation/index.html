@@ -1,41 +1,50 @@
 <!DOCTYPE html>
 <html lang="en"><!--html tag start-->
 <head>
-    
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="../css/adik.css" rel="stylesheet">
-  
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <!-- <script  src="./js/process_Trainer_updated.js">   </script> -->
-  <script  src="./js/PTrainer.js"></script>
-  
-	
- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.2.1/math.js"></script>
-  <script src=" https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.2.1/math.min.js  "></script>
- <script src="https://unpkg.com/mathjs/lib/browser/math.js"></script>
- 
+   <title>Output Characteristics of an N-Channel MOSFET</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/adik.css" rel="stylesheet">
+
+<!-- jQuery and jQuery UI -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Bootstrap Bundle JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom JS -->
+<script src="./js/PTrainer.js"></script>
+
+<!-- MathJax for rendering mathematical expressions -->
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<!-- Math.js library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.2.1/math.min.js"></script>
+
+<!-- jQuery Knob for UI components -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.13/jquery.knob.min.js"></script>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"> </script>
 
+<!-- CanvasJS for charting -->
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
-<link rel="stylesheet" href=
-"https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+
+<!-- Additional CSS -->
 <link rel="stylesheet" href="./css/process_Trainer.css">
 <link rel="stylesheet" href="./css/demo.css">
 
-  
+<!-- jQuery Flot Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flot/0.8.3/jquery.flot.min.js"></script>
+
+
   <!--[if IE]><script language="javascript" type="text/javascript" src="../flot/excanvas.min.js"></script><![endif]-->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
@@ -45,10 +54,6 @@
   });
 </script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-	
-
-<script language="javascript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.js"></script>
-<script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/flot/0.8.3/jquery.flot.min.js"></script>
 
 <script language="JavaScript">
 
@@ -140,16 +145,15 @@ function plotn() {
   
 </head>
 <body><!--body tag start-->
- 
     
-   <div class="container p-3 my-5 text-left border"><!--3rd Container under body tag start-->
+
+	
+    <div class="container p-3 my-5 text-left border"><!--3rd Container under body tag start-->
       <div class="row"><!--First row under 3rd container start-->
         <div class="col-md-1"></div><!--First col under 3rd container start& end-->
         <div class="col-md-10"><!--2nd col under 3rd container start-->
             <p class="text-center bg-success"> <a class="nav-link" data-bs-toggle="tab"  id="instcontrol" style="background-color:#128BD9"  ><span class=" h3 text-dark"> Instructions </span></a>
               <div id="inst" style="display:block;height:200px;overflow-y:auto;text-align:justify">
-					
-
 					
 					<!-- INSRTUCTION START -->
 	<div class="instructions">
@@ -220,72 +224,184 @@ $I_{DS}$&nbsp;[mA]</td><td><div id="placeholder" style="width: 500px; height: 40
 
 </td><td>
 <form name="data">
-<table style="border-collapse: collapse; background-color:#cccccc" align="center">
+<table style="border-collapse: collapse; background-color: #cccccc; width: auto; margin: 0 auto;">
+  <tbody>
+    <tr>
+      <td class="gray" style="text-align: right;"><i>W</i> = </td>
+      <td class="gray"><input size="10" value="1E-6" name="W" type="text"></td>
+      <td class="gray"> m</td>
+    </tr>
+    <tr>
+      <td class="gray" style="text-align: right;"><i>L</i> = </td>
+      <td class="gray"><input size="10" value="1E-7" name="L" type="text"></td>
+      <td class="gray"> m</td>
+    </tr>
+    <tr>
+      <td class="gray" style="text-align: right;">&#956; = </td>
+      <td class="gray"><input size="10" value="1400" name="mu" type="text"></td>
+      <td class="gray"> cm&sup2;/Vs&nbsp;</td>
+    </tr>
+    <tr>
+      <td class="gray" style="text-align: right;"><i>V<sub>DS,max</sub></i> = </td>
+      <td class="gray"><input size="10" value="10" name="Vd" type="text"></td>
+      <td class="gray"> V</td>
+    </tr>
+    <tr><td colspan="3" class="gray" style="height: 10px;"></td></tr>
 
-<tbody><tr><td class="gray"><p style="text-align: right;"><i>W</i> = </p></td><td class="gray"><input size="10" value="1E-6" name="W" type="text"></td><td class="gray"> m</td></tr>
+    <!-- Vg Inputs -->
+    <tr>
+      <td class="gray" style="text-align: right;"><i>V<sub>g</sub></i>[1] = </td>
+      <td class="gray"><input size="10" value="2" name="Vg1" type="text"></td>
+      <td class="gray"> V</td>
+    </tr>
+    <tr>
+      <td class="gray" style="text-align: right;"><i>V<sub>g</sub></i>[2] = </td>
+      <td class="gray"><input size="10" value="3" name="Vg2" type="text"></td>
+      <td class="gray"> V</td>
+    </tr>
+    <tr>
+      <td class="gray" style="text-align: right;"><i>V<sub>g</sub></i>[3] = </td>
+      <td class="gray"><input size="10" value="4" name="Vg3" type="text"></td>
+      <td class="gray"> V</td>
+    </tr>
+    <tr>
+      <td class="gray" style="text-align: right;"><i>V<sub>g</sub></i>[4] = </td>
+      <td class="gray"><input size="10" value="5" name="Vg4" type="text"></td>
+      <td class="gray"> V</td>
+    </tr>
+    <tr>
+      <td class="gray" style="text-align: right;"><i>V<sub>g</sub></i>[5] = </td>
+      <td class="gray"><input size="10" value="6" name="Vg5" type="text"></td>
+      <td class="gray"> V</td>
+    </tr>
+    <tr>
+      <td class="gray" style="text-align: right;"><i>V<sub>g</sub></i>[6] = </td>
+      <td class="gray"><input size="10" name="Vg6" type="text"></td>
+      <td class="gray"> V</td>
+    </tr>
+    <tr>
+      <td class="gray" style="text-align: right;"><i>V<sub>g</sub></i>[7] = </td>
+      <td class="gray"><input size="10" name="Vg7" type="text"></td>
+      <td class="gray"> V</td>
+    </tr>
+    <tr>
+      <td class="gray" style="text-align: right;"><i>V<sub>g</sub></i>[8] = </td>
+      <td class="gray"><input size="10" name="Vg8" type="text"></td>
+      <td class="gray"> V</td>
+    </tr>
+    <tr>
+      <td class="gray" style="text-align: right;"><i>V<sub>g</sub></i>[9] = </td>
+      <td class="gray"><input size="10" name="Vg9" type="text"></td>
+      <td class="gray"> V</td>
+    </tr>
+    <tr>
+      <td class="gray" style="text-align: right;"><i>V<sub>g</sub></i>[10] = </td>
+      <td class="gray"><input size="10" name="Vg10" type="text"></td>
+      <td class="gray"> V</td>
+    </tr>
 
-<tr><td class="gray"><p style="text-align: right;"><i>L</i> = </p></td><td class="gray"><input size="10" value="1E-7" name="L" type="text"></td><td class="gray"> m</td></tr>
-
-<tr><td class="gray"><p style="text-align: right;">&#956; = </p></td><td class="gray"><input size="10" value="1400" name="mu" type="text"></td><td class="gray"> cm&sup2;/Vs&nbsp;</td></tr>
-
-<!-- <tr><td class="gray"><p style="text-align: right;"><i>V<sub>T</sub></i> = </p></td><td class="gray"><input size="10" value="1" name="Vt" type="text"></td><td class="gray"> V</td></tr> -->
-
-<tr><td class="gray"><p style="text-align: right;"><i>V<sub>DS,max</sub></i> = </p></td><td class="gray"><input size="10" value="10" name="Vd" type="text"></td><td class="gray"> V</td></tr>
-
-<tr><td colspan="3" style="background-color: rgb(204, 204, 204);"><p>&nbsp;</p></td></tr>
-<tr><td class="gray"><p style="text-align: right;"><i>V<sub>g</sub></i>[1] = </p></td><td class="gray"><input size="10" value="2" name="Vg1" type="text"></td><td class="gray"> V</td></tr>
-<tr><td class="gray"><p style="text-align: right;"><i>V<sub>g</sub></i>[2] = </p></td><td class="gray"><input size="10" value="3" name="Vg2" type="text"></td><td class="gray"> V</td></tr>
-<tr><td class="gray"><p style="text-align: right;"><i>V<sub>g</sub></i>[3] = </p></td><td class="gray"><input size="10" value="4" name="Vg3" type="text"></td><td class="gray"> V</td></tr>
-
-<tr><td class="gray"><p style="text-align: right;"><i>V<sub>g</sub></i>[4] = </p></td><td class="gray"><input size="10" value="5" name="Vg4" type="text"></td><td class="gray"> V</td></tr>
-<tr><td class="gray"><p style="text-align: right;"><i>V<sub>g</sub></i>[5] = </p></td><td class="gray"><input size="10" value="6" name="Vg5" type="text"></td><td class="gray"> V</td></tr>
-<tr><td class="gray"><p style="text-align: right;"><i>V<sub>g</sub></i>[6] = </p></td><td class="gray"><input size="10" name="Vg6" type="text"></td><td class="gray"> V</td></tr>
-
-<tr><td class="gray"><p style="text-align: right;"><i>V<sub>g</sub></i>[7] = </p></td><td class="gray"><input size="10" name="Vg7" type="text"></td><td class="gray"> V</td></tr>
-<tr><td class="gray"><p style="text-align: right;"><i>V<sub>g</sub></i>[8] = </p></td><td class="gray"><input size="10" name="Vg8" type="text"></td><td class="gray"> V</td></tr>
-<tr><td class="gray"><p style="text-align: right;"><i>V<sub>g</sub></i>[9] = </p></td><td class="gray"><input size="10" name="Vg9" type="text"></td><td class="gray"> V</td></tr>
-
-<tr><td class="gray"><p style="text-align: right;"><i>V<sub>g</sub></i>[10] = </p></td><td class="gray"><input size="10" name="Vg10" type="text"></td><td class="gray"> V</td></tr>
-<tr><td colspan="3" style="background-color: rgb(204, 204, 204);"><p>&nbsp;</p></td></tr>
-<tr><td colspan="3" style="background-color: rgb(204, 204, 204);"><p style="text-align: center;"><input onclick="plotn()" value="Replot" type="button"></p></td></tr>
-</tbody></table>
+    <tr><td colspan="3" class="gray" style="height: 10px;"></td></tr>
+    <tr>
+      <td colspan="3" class="gray" style="text-align: center;">
+        <input onclick="plotn()" value="Replot" type="button">
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 
-</td><td> <!-- 2nd column -->
 
-<table style="border-collapse: collapse; background-color:#cccccc" align="center">
+</td>
+<td> <!-- 2nd column -->
+    <table style="border-collapse: collapse; background-color: #cccccc; width: auto; margin: 0 auto;">
+        <tbody>
+            <tr>
+                <td class="gray" style="text-align: right;">&phi;<sub>m</sub> = </td>
+                <td class="gray"><input type="text" name="phi_m" size="10" value="4.08"></td>
+                <td class="gray"> eV</td>
+            </tr>
+            <tr>
+                <td class="gray" style="text-align: right;">&chi;<sub>s</sub> = </td>
+                <td class="gray"><input type="text" name="chi_s" size="10" value="4.05"></td>
+                <td class="gray"> eV</td>
+            </tr>
+            <tr>
+                <td class="gray" style="text-align: right;"><i>t<sub>ox</sub></i> = </td>
+                <td class="gray"><input type="text" name="tox" size="10" value="3"></td>
+                <td class="gray"> nm</td>
+            </tr>
+            <tr>
+                <td class="gray" style="text-align: right;">&epsilon;<sub>ox</sub> = </td>
+                <td class="gray"><input type="text" name="eps_ox" size="10" value="4"></td>
+                <td class="gray"></td>
+            </tr>
+            <tr>
+                <td class="gray" style="text-align: right;">&epsilon;<sub>semi</sub> = </td>
+                <td class="gray"><input type="text" name="eps" size="10" value="12"></td>
+                <td class="gray"></td>
+            </tr>
+            <tr>
+                <td class="gray" style="text-align: right;"><i>N<sub>c</sub></i> = </td>
+                <td class="gray"><input type="text" name="Nc" size="10" value="2.78E19"></td>
+                <td class="gray"> 1/cm&sup3;</td>
+            </tr>
+            <tr>
+                <td class="gray" style="text-align: right;"><i>N<sub>v</sub></i> = </td>
+                <td class="gray"><input type="text" name="Nv" size="10" value="9.84E18"></td>
+                <td class="gray"> 1/cm&sup3;</td>
+            </tr>
+            <tr>
+                <td class="gray" style="text-align: right;"><i>N<sub>A</sub></i> = </td>
+                <td class="gray"><input type="text" name="na" size="10" value="1E17"></td>
+                <td class="gray"> 1/cm&sup3;</td>
+            </tr>
+            <tr>
+                <td class="gray" style="text-align: right;"><i>E<sub>g</sub></i>(<i>T</i>) = </td>
+                <td class="gray"><input type="text" name="Eg" size="10" value="1.166-4.73E-4*T*T/(T+636)"></td>
+                <td class="gray"> eV</td>
+            </tr>
+            <tr>
+                <td class="gray" style="text-align: right;"><i>T</i> = </td>
+                <td class="gray"><input type="text" name="T" size="10" value="300"></td>
+                <td class="gray"> K</td>
+            </tr>
+            <tr><td colspan="3" style="height: 10px;"></td></tr>
 
-<tbody><tr><td class="gray"><p style="text-align: right;">&phi;<sub>m</sub> = </p></td><td class="gray"><input type="text" name="phi_m" size="10" value="4.08"></td><td class="gray"> eV</td></tr>
+            <!-- Results -->
+            <tr>
+                <td class="gray" style="text-align: right;"><i>C</i> = </td>
+                <td colspan="2"><span id="C_txt">2</span> F/m&sup2;</td>
+            </tr>
+            <tr>
+                <td class="gray" style="text-align: right;">&phi;<sub>s</sub> = </td>
+                <td colspan="2"><span id="phis_txt">2</span> eV</td>
+            </tr>
+            <tr>
+                <td class="gray" style="text-align: right;"><i>E<sub>g</sub></i> = </td>
+                <td colspan="2"><span id="Eg_txt">2</span> eV</td>
+            </tr>
+            <tr>
+                <td class="gray" style="text-align: right;"><i>n<sub>i</sub></i> = </td>
+                <td colspan="2"><span id="ni_txt">2</span> V</td>
+            </tr>
+            <tr>
+                <td class="gray" style="text-align: right;"><i>V<sub>fb</sub></i> = </td>
+                <td colspan="2"><span id="Vfb_txt">2</span> V</td>
+            </tr>
+            <tr>
+                <td class="gray" style="text-align: right;"><i>V<sub>T</sub></i> = </td>
+                <td colspan="2"><span id="VT_txt">2</span> V</td>
+            </tr>
+        </tbody>
+    </table>
 
-<tr><td class="gray"><p style="text-align: right;">&chi;<sub>s</sub> = </p></td><td class="gray"><input type="text" name="chi_s" size="10" value="4.05"></td><td class="gray"> eV</td></tr>
 
-<tr><td class="gray"><p style="text-align: right;"><i>t<sub>ox</sub></i> = </p></td><td class="gray"><input type="text" name="tox" size="10" value="3"></td><td class="gray"> nm</td></tr>
-
-<tr><td class="gray"><p style="text-align: right;">&epsilon;<sub>ox</sub> = </p></td><td class="gray"><input type="text" name="eps_ox" size="10" value="4"></td><td class="gray"> </td></tr>
-
-<tr><td class="gray"><p style="text-align: right;">&epsilon;<sub>semi</sub> = </p></td><td class="gray"><input type="text" name="eps" size="10" value="12"></td><td class="gray"> </td></tr>
-
-<tr><td class="gray"><p style="text-align: right;"><i>N<sub>c</sub></i> = </p></td><td class="gray"><input type="text" name="Nc" size="10" value="2.78E19"></td><td class="gray"> 1/cm&sup3;</td></tr>
-
-<tr><td class="gray"><p style="text-align: right;"><i>N<sub>v</sub></i> = </p></td><td class="gray"><input type="text" name="Nv" size="10" value="9.84E18"></td><td class="gray"> 1/cm&sup3;</td></tr>
-<tr><td class="gray"><p style="text-align: right;"><i>N<sub>A</sub></i> = </p></td><td class="gray"><input type="text" name="na" size="10" value="1E17"></td><td class="gray"> 1/cm&sup3;</td></tr>
-<tr><td class="gray"><p style="text-align: right;"><i>E<sub>g</sub></i>(<i>T</i>) = </p></td><td class="gray"><input type="text" name="Eg" size="10" value="1.166-4.73E-4*T*T/(T+636)"></td><td class="gray"> eV</td></tr>
-
-<tr><td class="gray"><p style="text-align: right;"><i>T</i> = </p></td><td class="gray"><input type="text" name="T" size="10" value="300"></td><td class="gray"> K</td></tr>
-
-<tr><td colspan="3">&nbsp;</td></tr>
-<tr><td><p style="text-align: right;"><i>C</i> = </p></td><td colspan="2"><span id="C_txt">2</span>  F/m&sup2;</td></tr>
-<tr><td><p style="text-align: right;">&phi;<sub>s</sub> = </p></td><td colspan="2"><span id="phis_txt">2</span>  eV</td></tr>
-<tr><td><p style="text-align: right;"><i>E<sub>g</sub></i> = </p></td><td colspan="2"><span id="Eg_txt">2</span>  eV</td></tr>
-<tr><td><p style="text-align: right;"><i>n<sub>i</sub></i> = </p></td><td colspan="2"><span id="ni_txt">2</span>  V</td></tr>
-<tr><td><p style="text-align: right;"><i>V<sub>fb</sub></i> = </p></td><td colspan="2"><span id="Vfb_txt">2</span>  V</td></tr>
-<tr><td><p style="text-align: right;"><i>V<sub>T</sub></i> = </p></td><td colspan="2"><span id="VT_txt">2</span>  V</td></tr>
-</tbody></table>
 
 </form>
 
 
-</td></tr></table>
+</td>
+</tr></table>
 
 
 
@@ -308,10 +424,5 @@ plotn();
 </div>
    <!--simulation end -->
    
-
-  </div><!--Last and fifth container under body tag end-->
-
-  
-	 
 </body><!--body tag end-->
 </html><!--html tag end-->
