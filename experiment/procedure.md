@@ -1,8 +1,8 @@
 ## Procedure
-
+<div align="center">
 <img src="images/peq.jpg"  />
-  
-**Fig. 1. Gradual channel approximation**
+<p><strong>Fig. 1. Gradual channel approximation</strong></p>
+</div>
 
 # MOSFET Experiment Procedure
 
