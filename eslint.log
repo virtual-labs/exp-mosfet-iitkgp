@@ -1,0 +1,12 @@
+
+/home/runner/work/exp-mosfet-iitkgp/exp-mosfet-iitkgp/experiment/simulation/js/adiprq.js
+   9:1   warning  '$' is not defined               no-undef
+  10:5   warning  '$' is not defined               no-undef
+  14:9   warning  '$' is not defined               no-undef
+  25:9   warning  '$' is not defined               no-undef
+  29:10  warning  'cas' is defined but never used  no-unused-vars
+  30:5   warning  '$' is not defined               no-undef
+  31:9   warning  '$' is not defined               no-undef
+
+✖ 7 problems (0 errors, 7 warnings)
+
