@@ -1,39 +1,120 @@
-{
-  "version": 2.0,
+
+  {
+	  "version": 2.0,
   "questions": [
+
+    
     {
-      "question": "This is a Sample Question 1?",
-      "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
-      },
-      "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
-      },
-      "correctAnswer": "a",
-      "difficulty": "beginner"
+        "question": "1. What is the typical shape of the output characteristics curve for an n-channel MOSFET?",
+        "answers": {
+            "a": "Straight line",
+            "b": "Exponential curve",
+            "c": "S-shaped curve",
+            "d": "Parabolic curve"
+        },
+        "correctAnswer": "c",
+        "difficulty": "intermediate"
     },
     {
-      "question": "This is a Sample Question 2?",
-      "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
-      },
-      "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
-      },
-      "correctAnswer": "c",
-      "difficulty": "beginner"
+        "question": "2. What is the effect of increasing gate voltage (V_G) on the drain current (I_D)?",
+        "answers": {
+            "a": "I_D decreases",
+            "b": "I_D remains constant",
+            "c": "I_D increases",
+            "d": "I_D oscillates"
+        },
+        "correctAnswer": "c",
+        "difficulty": "beginner"
+    },
+    {
+        "question": "3. Which region of operation is suitable for digital switching applications in an n-channel MOSFET?",
+        "answers": {
+            "a": "Cutoff region",
+            "b": "Saturation region",
+            "c": "Linear region",
+            "d": "All of the above"
+        },
+        "correctAnswer": "a",
+        "difficulty": "beginner"
+    },
+    {
+        "question": "4. In the linear region, how does the relationship between I_D and V_DS behave?",
+        "answers": {
+            "a": "Linear relationship",
+            "b": "Quadratic relationship",
+            "c": "Inverse relationship",
+            "d": "Logarithmic relationship"
+        },
+        "correctAnswer": "a",
+        "difficulty": "intermediate"
+    },
+    {
+        "question": "5. Which factor can cause the threshold voltage (V_T) to vary?",
+        "answers": {
+            "a": "Temperature",
+            "b": "Substrate doping concentration",
+            "c": "Gate oxide thickness",
+            "d": "All of the above"
+        },
+        "correctAnswer": "d",
+        "difficulty": "advanced"
+    },
+    {
+        "question": "6. In the saturation region, what is the primary mode of operation for an n-channel MOSFET?",
+        "answers": {
+            "a": "Current is controlled by gate voltage",
+            "b": "Current is controlled by drain voltage",
+            "c": "Current is controlled by temperature",
+            "d": "Current is controlled by source voltage"
+        },
+        "correctAnswer": "a",
+        "difficulty": "intermediate"
+    },
+    {
+        "question": "7. What is the significance of the transconductance (g_m) in MOSFET operation?",
+        "answers": {
+            "a": "It indicates the output voltage",
+            "b": "It indicates the input capacitance",
+            "c": "It indicates the change in drain current with gate voltage",
+            "d": "It indicates the change in source current with drain voltage"
+        },
+        "correctAnswer": "c",
+        "difficulty": "intermediate"
+    },
+    {
+        "question": "8. What happens to the drain current (I_D) when the n-channel MOSFET is in the cutoff region?",
+        "answers": {
+            "a": "I_D increases linearly",
+            "b": "I_D decreases to zero",
+            "c": "I_D remains constant at a value",
+            "d": "I_D becomes negative"
+        },
+        "correctAnswer": "b",
+        "difficulty": "beginner"
+    },
+    {
+        "question": "9. In terms of output characteristics, what does the term 'pinch-off' refer to?",
+        "answers": {
+            "a": "The maximum voltage across the MOSFET",
+            "b": "The point where the channel is fully formed",
+            "c": "The point at which the current becomes constant despite increasing V_DS",
+            "d": "The minimum gate voltage needed to turn on the device"
+        },
+        "correctAnswer": "c",
+        "difficulty": "advanced"
+    },
+    {
+        "question": "10. Which device characteristic is essential for determining the MOSFET's power dissipation?",
+        "answers": {
+            "a": "Threshold voltage",
+            "b": "Drain current",
+            "c": "On-resistance (R_on)",
+            "d": "Gate capacitance"
+        },
+        "correctAnswer": "c",
+        "difficulty": "advanced"
     }
+
+
   ]
 }
