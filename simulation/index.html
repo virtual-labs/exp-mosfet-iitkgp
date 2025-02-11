@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en"><!--html tag start-->
+<head>
+   <title>Output Characteristics of an N-Channel MOSFET</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="../css/adik.css" rel="stylesheet">
+
+<!-- jQuery and jQuery UI -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Bootstrap Bundle JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom JS -->
+<script src="./js/PTrainer.js"></script>
+
+<!-- MathJax for rendering mathematical expressions -->
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<!-- Math.js library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.2.1/math.min.js"></script>
+
+<!-- jQuery Knob for UI components -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.13/jquery.knob.min.js"></script>
+
+<!-- CanvasJS for charting -->
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+
+<!-- Additional CSS -->
+<link rel="stylesheet" href="./css/process_Trainer.css">
+<link rel="stylesheet" href="./css/demo.css">
+
+<!-- jQuery Flot Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flot/0.8.3/jquery.flot.min.js"></script>
+
+
+  <!--[if IE]><script language="javascript" type="text/javascript" src="../flot/excanvas.min.js"></script><![endif]-->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+    tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+  });
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script language="JavaScript">
+
+var d1 = [];
+var Vg = [];
+var legend = [];
+var colors = ["rgb(0,0,0)","rgb(255,0,0)","rgb(50,200,50)","rgb(50,50,255)","rgb(125,0,0)","rgb(0,125,0)","rgb(50,50,125)","rgb(125,125,125)","rgb(125,0,125)","rgb(125,125,50)"];
+echarge = 1.60217733E-19;
+kb = 1.380658E-23/echarge;  //eV/K
+
+function plotn() { 
+    d1.length = 0;  
+    Vg.length = 0;
+    legend.length = 0;
+
+    W = eval(data.W.value);
+    L = eval(data.L.value);
+    tox = eval(data.tox.value) * 1E-9;
+    eps_ox = 8.854187817E-12 * eval(data.eps_ox.value);
+    C = eps_ox / tox;
+    document.getElementById('C_txt').innerHTML = C.toPrecision(3);
+    mu = eval(data.mu.value);
+    Vd = eval(data.Vd.value);
+
+    for (let i = 1; i <= 10; i++) {
+        Vg[i] = eval(data[`Vg${i}`].value);
+    }
+
+    output = "";
+
+    na = 1E6 * eval(data.na.value);
+    Nv = 1E6 * eval(data.Nv.value);
+    Nc = 1E6 * eval(data.Nc.value);
+    T = eval(data.T.value);
+    Eg = eval(data.Eg.value);
+    phi_m = eval(data.phi_m.value);
+    chi_s = eval(data.chi_s.value);
+    document.getElementById('Eg_txt').innerHTML = Eg.toPrecision(3);
+    eps = 8.854187817E-12 * eval(data.eps.value);
+    
+    ni = Math.sqrt(Nc * Nv * Math.pow(T / 300, 3)) * Math.exp(1.6022E-19 * (-Eg) / (2 * 1.380658E-23 * T));
+    document.getElementById('ni_txt').innerHTML = (ni / 1E6).toPrecision(3);
+
+    Ev0 = kb * T * Math.log(na / Nv);
+    phi_s = chi_s + Eg + Ev0;
+    document.getElementById('phis_txt').innerHTML = phi_s.toPrecision(3);
+
+    Vfb = phi_m - phi_s;
+    document.getElementById('Vfb_txt').innerHTML = Vfb.toPrecision(3);
+
+    Vt = 2 * tox * Math.sqrt(eps * na * 1.380658E-23 * T * Math.log(na / ni)) / eps_ox + 2 * kb * T * Math.log(na / ni);
+    document.getElementById('VT_txt').innerHTML = (Vt + Vfb).toPrecision(3);
+
+    legend = Vg.map((vg, index) => vg ? `V<sub>G</sub> = ${vg}` : "").filter(Boolean);
+    
+    for (let j = 0; j < 10; j++) {
+        if (Vg[j + 1] === 0) Vg[j + 1] = 1E-10;
+        d1[j] = [];
+
+        if (Vg[j + 1]) {
+            for (let k = 0; k < 201; k++) {
+                let V = k * Vd / 200;
+                let I = (V < Vg[j + 1] - Vt) 
+                    ? mu * 1E-4 * W * C / L * (Vg[j + 1] - Vt - V / 2) * V
+                    : mu * 1E-4 * W * C / (2 * L) * (Vg[j + 1] - Vt) ** 2;
+                if (Vg[j + 1] < Vt) I = 0;
+                d1[j][k] = [V, I * 1000];
+                output += `${Vg[j + 1]}\t${V}\t${(1000 * I).toPrecision(6)}\n`;
+            }
+        }
+    }
+
+    let data1 = [];
+    let colors = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"];
+
+    for (let k = 0; k < 10; k++) {
+        if (Vg[k + 1]) {
+            data1.push({
+                data: d1[k],
+                color: colors[k],
+                shadowSize: 0,
+                lines: { show: false },  // Hide lines
+                points: { show: true, radius: 3, symbol: "circle", fill: true, fillColor: colors[k] }, // Show dotted points
+                label: legend[k]
+            });
+        }
+    }
+
+    // Plot the graph
+    let plot = $.plot($("#placeholder"), data1, {
+        grid: { borderWidth: 1, hoverable: true, backgroundColor: "#f8f9fa", markingsStyle: "dashed" },
+        tooltip: { show: true, content: "V: %x, I: %y mA", shifts: { x: 10, y: 20 } }
+    });
+
+    // Tooltip Event Listener
+    let previousPoint = null;
+    $("#placeholder").bind("plothover", function (event, pos, item) {
+        if (item) {
+            if (previousPoint !== item.dataIndex) {
+                previousPoint = item.dataIndex;
+                $("#tooltip").remove();
+
+                let x = item.datapoint[0].toFixed(3);
+                let y = item.datapoint[1].toFixed(3);
+                
+                $("<div id='tooltip'>" + 
+                    "<strong>V:</strong> " + x + " V<br>" +
+                    "<strong>I:</strong> " + y + " mA</div>")
+                    .css({
+                        position: "absolute",
+                        display: "block",
+                        top: item.pageY + 10,
+                        left: item.pageX + 10,
+                        padding: "5px",
+                        "background-color": "#fff",
+                        border: "1px solid #ddd",
+                        "border-radius": "5px",
+                        opacity: 0.9
+                    })
+                    .appendTo("body")
+                    .fadeIn(200);
+            }
+        } else {
+            $("#tooltip").remove();
+            previousPoint = null;
+        }
+    });
+
+    data2.output.value = output;
+}
+
+</script>
+
+<style>
+  body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+  }
+  .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
+            width: 100%;
+        }
+  table {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+  input:focus {
+      border-color: #007bff;
+      outline: none;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+  .button {
+      background-color: #007bff;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+  }
+  .button:hover {
+      background-color: #0056b3;
+  }
+  .gray {
+      padding: 5px;
+  }
+  .output-box {
+      background-color: #e9ecef;
+      padding: 10px;
+      border-radius: 5px;
+      font-family: monospace;
+      width: 100%;
+  }
+
+
+
+
+
+
+
+
+
+  .centered-div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+      
+        table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        table td.gray {
+            background-color: #f9f9f9;
+            color: #333;
+        }
+       
+        input[type="button"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="button"]:hover {
+            background-color: #0056b3;
+        }
+      
+        #placeholder {
+            background-color: #e9e9e9;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-section {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .form-section > div {
+            flex: 1;
+        }
+
+  
+  
+</style>
+  
+</head>
+<body><!--body tag start-->
+    
+
+	
+    <div class="container p-3 my-5 text-left border"><!--3rd Container under body tag start-->
+      <div class="row"><!--First row under 3rd container start-->
+        <div class="col-md-1"></div><!--First col under 3rd container start& end-->
+        <div class="col-md-10"><!--2nd col under 3rd container start-->
+            <p class="text-center bg-success"> <a class="nav-link" data-bs-toggle="tab"  id="instcontrol" style="background-color:#128BD9"  ><span class=" h3 text-dark"> Instructions </span></a>
+              <div id="inst" style="display:block;height:200px;overflow-y:auto;text-align:justify">
+					
+					<!-- INSRTUCTION START -->
+          <div class="instructions">
+        
+            <ol class="steps">
+                
+                <li>Configure the following parameters for the n-channel MOSFET:
+                    <ul>
+                        <li>Width (<em>W</em>): 1 &micro;m</li>
+                        <li>Length (<em>L</em>): 0.1 &micro;m</li>
+                        <li>Mobility (<em>&mu;</em>): 1400 cm<sup>2</sup>/Vs</li>
+                        <li>Maximum <em>V<sub>DS</sub></em>: 10 V</li>
+                        <li>Gate voltages (<em>V<sub>G</sub></em>) ranging from 2 V to 11 V in 1 V steps</li>
+                    </ul>
+                </li>
+                <li>Set the material properties and other physical parameters:
+                    <ul>
+                        <li>Metal work function (<em>&phi;<sub>m</sub></em>): 4.08 eV</li>
+                        <li>Electron affinity (<em>&chi;<sub>s</sub></em>): 4.05 eV</li>
+                        <li>Oxide thickness (<em>t<sub>ox</sub></em>): 3 nm</li>
+                        <li>Oxide permittivity (<em>&epsilon;<sub>ox</sub></em>): 4</li>
+                        <li>Semiconductor permittivity (<em>&epsilon;<sub>semi</sub></em>): 12</li>
+                        <li>Effective density of states in conduction band (<em>N<sub>C</sub></em>): 2.78 &times; 10<sup>19</sup> cm<sup>-3</sup></li>
+                        <li>Effective density of states in valence band (<em>N<sub>V</sub></em>): 9.84 &times; 10<sup>18</sup> cm<sup>-3</sup></li>
+                        <li>Acceptor doping concentration (<em>N<sub>A</sub></em>): 1 &times; 10<sup>17</sup> cm<sup>-3</sup></li>
+                        <li>Energy gap (<em>E<sub>g</sub></em>): 1.12 eV</li>
+                        <li>Intrinsic carrier concentration (<em>n<sub>i</sub></em>): 6.4 &times; 10<sup>9</sup> cm<sup>-3</sup></li>
+                        <li>Temperature (<em>T</em>): 300 K</li>
+                    </ul>
+                </li>
+                <li>Click the "Replot" or "Simulate" button to generate the plot of <em>I<sub>D</sub></em> vs. <em>V<sub>DS</sub></em> for the different gate voltages.</li>
+                <li>Observe the resulting graph, which should display multiple curves representing <em>I<sub>D</sub></em> vs. <em>V<sub>DS</sub></em> for various <em>V<sub>G</sub></em> values. The plot will typically show increasing <em>I<sub>D</sub></em> with higher <em>V<sub>G</sub></em> values.</li>
+                <li>Analyze the data by noting the behavior in the linear and saturation regions:
+                    <ul>
+                        <li>Linear region: <em>I<sub>D</sub></em> increases linearly with <em>V<sub>DS</sub></em>.</li>
+                        <li>Saturation region: <em>I<sub>D</sub></em> becomes nearly constant for a given <em>V<sub>G</sub></em> as <em>V<sub>DS</sub></em> increases further.</li>
+                    </ul>
+                </li>
+            </ol>
+    
+            </div>
+				<!-- INSTRUCTION STOP -->	
+					
+		   </div>
+            </p> 
+          </div><!--2nd col under 3rd container end-->
+		  
+        <div class="col-md-1"></div><!--3rd col under 3rd container start& end-->
+      </div><!--First row under 3rd container end-->
+    </div><!--3rd Container under body tag end-->
+	
+   <!--simulation start -->
+   <div class="container">
+        <div class="centered-div">
+    <body style="background-color:white" onload="moscap();"><div id="MathJax_Message" style="display: none;"></div>
+
+
+
+
+
+
+<table align="center"><tr><td>
+
+<table><tr><td>
+$I_{DS}$&nbsp;[mA]</td><td><div id="placeholder" style="width: 500px; height: 400px; position: relative;"></div></td></tr>
+<tr><td></td><td><p style="text-align: center;">$V_{DS}$&nbsp;[V]</p></td></tr></table>
+
+</td><td>
+<form name="data">
+<table style="border-collapse: collapse; background-color: #cccccc; width: auto; margin: 0 auto;">
+  <tbody>
+    <tr>
+      <td class="gray" style="text-align: right;"><i>W</i> =</td>
+      <td class="gray"><input size="10" value="1E-6" name="W" type="text"></td>
+      <td class="gray">m</td>
+  </tr>
+  <tr>
+    <td class="gray" style="text-align: right;"><i>L</i> =</td>
+    <td class="gray"><input size="10" value="1E-7" name="L" type="text"></td>
+    <td class="gray">m</td>
+</tr>
+<tr>
+  <td class="gray" style="text-align: right;">&#956; =</td>
+  <td class="gray"><input size="10" value="1400" name="mu" type="text"></td>
+    <td class="gray">cm²/Vs</td>
+</tr>
+<tr>
+  <td class="gray" style="text-align: right;"><i>V<sub>DS,max</sub></i> =</td>
+  <td class="gray"><input size="10" value="10" name="Vd" type="text"></td>
+    <td class="gray">V</td>
+</tr>
+    
+
+    <!-- Vg Inputs -->
+    <tr>
+      <td class="gray" style="text-align: right;"><i>V<sub>g</sub></i>[1] = </td>
+      <td class="gray"><input size="10" value="2" name="Vg1" type="text"></td>
+      <td class="gray"> V</td>
+    </tr>
+    <tr>
+      <td class="gray" style="text-align: right;"><i>V<sub>g</sub></i>[2] = </td>
+      <td class="gray"><input size="10" value="3" name="Vg2" type="text"></td>
+      <td class="gray"> V</td>
+    </tr>
+    <tr>
+      <td class="gray" style="text-align: right;"><i>V<sub>g</sub></i>[3] = </td>
+      <td class="gray"><input size="10" value="4" name="Vg3" type="text"></td>
+      <td class="gray"> V</td>
+    </tr>
+    <tr>
+      <td class="gray" style="text-align: right;"><i>V<sub>g</sub></i>[4] = </td>
+      <td class="gray"><input size="10" value="5" name="Vg4" type="text"></td>
+      <td class="gray"> V</td>
+    </tr>
+    <tr>
+      <td class="gray" style="text-align: right;"><i>V<sub>g</sub></i>[5] = </td>
+      <td class="gray"><input size="10" value="6" name="Vg5" type="text"></td>
+      <td class="gray"> V</td>
+    </tr>
+    <tr>
+      <td class="gray" style="text-align: right;"><i>V<sub>g</sub></i>[6] = </td>
+      <td class="gray"><input size="10" name="Vg6" type="text"></td>
+      <td class="gray"> V</td>
+    </tr>
+    <tr>
+      <td class="gray" style="text-align: right;"><i>V<sub>g</sub></i>[7] = </td>
+      <td class="gray"><input size="10" name="Vg7" type="text"></td>
+      <td class="gray"> V</td>
+    </tr>
+    <tr>
+      <td class="gray" style="text-align: right;"><i>V<sub>g</sub></i>[8] = </td>
+      <td class="gray"><input size="10" name="Vg8" type="text"></td>
+      <td class="gray"> V</td>
+    </tr>
+    <tr>
+      <td class="gray" style="text-align: right;"><i>V<sub>g</sub></i>[9] = </td>
+      <td class="gray"><input size="10" name="Vg9" type="text"></td>
+      <td class="gray"> V</td>
+    </tr>
+    <tr>
+      <td class="gray" style="text-align: right;"><i>V<sub>g</sub></i>[10] = </td>
+      <td class="gray"><input size="10" name="Vg10" type="text"></td>
+      <td class="gray"> V</td>
+    </tr>
+
+    <tr><td colspan="3" class="gray" style="height: 10px;"></td></tr>
+    <tr>
+      <td colspan="3" class="gray" style="text-align: center;">
+        <input onclick="plotn()" value="Replot" type="button">
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+</td>
+<td> <!-- 2nd column -->
+    <table style="border-collapse: collapse; background-color: #cccccc; width: auto; margin: 0 auto;">
+        <tbody>
+            <tr>
+                <td class="gray" style="text-align: right;">&phi;<sub>m</sub> = </td>
+                <td class="gray"><input type="text" name="phi_m" size="10" value="4.08"></td>
+                <td class="gray"> eV</td>
+            </tr>
+            <tr>
+                <td class="gray" style="text-align: right;">&chi;<sub>s</sub> = </td>
+                <td class="gray"><input type="text" name="chi_s" size="10" value="4.05"></td>
+                <td class="gray"> eV</td>
+            </tr>
+            <tr>
+                <td class="gray" style="text-align: right;"><i>t<sub>ox</sub></i> = </td>
+                <td class="gray"><input type="text" name="tox" size="10" value="3"></td>
+                <td class="gray"> nm</td>
+            </tr>
+            <tr>
+                <td class="gray" style="text-align: right;">&epsilon;<sub>ox</sub> = </td>
+                <td class="gray"><input type="text" name="eps_ox" size="10" value="4"></td>
+                <td class="gray"></td>
+            </tr>
+            <tr>
+                <td class="gray" style="text-align: right;">&epsilon;<sub>semi</sub> = </td>
+                <td class="gray"><input type="text" name="eps" size="10" value="12"></td>
+                <td class="gray"></td>
+            </tr>
+            <tr>
+                <td class="gray" style="text-align: right;"><i>N<sub>c</sub></i> = </td>
+                <td class="gray"><input type="text" name="Nc" size="10" value="2.78E19"></td>
+                <td class="gray"> 1/cm&sup3;</td>
+            </tr>
+            <tr>
+                <td class="gray" style="text-align: right;"><i>N<sub>v</sub></i> = </td>
+                <td class="gray"><input type="text" name="Nv" size="10" value="9.84E18"></td>
+                <td class="gray"> 1/cm&sup3;</td>
+            </tr>
+            <tr>
+                <td class="gray" style="text-align: right;"><i>N<sub>A</sub></i> = </td>
+                <td class="gray"><input type="text" name="na" size="10" value="1E17"></td>
+                <td class="gray"> 1/cm&sup3;</td>
+            </tr>
+            <tr>
+                <td class="gray" style="text-align: right;"><i>E<sub>g</sub></i>(<i>T</i>) = </td>
+                <td class="gray"><input type="text" name="Eg" size="10" value="1.166-4.73E-4*T*T/(T+636)"></td>
+                <td class="gray"> eV</td>
+            </tr>
+            <tr>
+                <td class="gray" style="text-align: right;"><i>T</i> = </td>
+                <td class="gray"><input type="text" name="T" size="10" value="300"></td>
+                <td class="gray"> K</td>
+            </tr>
+            <tr id="myRow1"><td colspan="3"  style="height: 10px;"></td></tr>
+            <script>
+              document.getElementById("myRow1").style.backgroundColor = "#ADD8E6";
+          </script>
+            <!-- Results -->
+            <table>
+              <tr class="gray">
+                  <td class="gray"><i>C</i> = </td>
+                  <td colspan="2"><span id="C_txt">2</span> F/m²</td>
+              </tr>
+              <tr class="gray">
+                  <td class="gray">&phi;<sub>s</sub> = </td>
+                  <td colspan="2"><span id="phis_txt">2</span> eV</td>
+              </tr>
+              <tr class="gray">
+                  <td class="gray"><i>E<sub>g</sub></i> = </td>
+                  <td colspan="2"><span id="Eg_txt">2</span> eV</td>
+              </tr>
+              <tr class="gray">
+                  <td class="gray"><i>n<sub>i</sub></i> = </td>
+                  <td colspan="2"><span id="ni_txt">2</span> V</td>
+              </tr>
+              <tr class="gray">
+                  <td class="gray"><i>V<sub>fb</sub></i> = </td>
+                  <td colspan="2"><span id="Vfb_txt">2</span> V</td>
+              </tr>
+              <tr class="gray">
+                  <td class="gray"><i>V<sub>T</sub></i> = </td>
+                  <td colspan="2"><span id="VT_txt">2</span> V</td>
+              </tr>
+        </tbody>
+    </table>
+
+
+
+</form>
+
+
+</td>
+</tr></table>
+
+
+
+<form name="data2">
+<p style="text-align:center">$V_G$&nbsp;[V]&emsp;$V_D$&nbsp;[V]&emsp;$I_D$&nbsp;[mA]<br />
+<textarea name="output" rows="10" cols="40" wrap="off">
+</textarea></p>
+</form>
+
+<script>
+plotn();
+</script>
+
+
+</td></tr></tbody></table>
+
+
+
+</div>
+</div>
+   <!--simulation end -->
+   
+<script src="../assets/js/iframeResize.js"></script>
+        
+        </body><!--body tag end-->
+</html><!--html tag end-->
