@@ -64,79 +64,125 @@ var colors = ["rgb(0,0,0)","rgb(255,0,0)","rgb(50,200,50)","rgb(50,50,255)","rgb
 echarge = 1.60217733E-19;
 kb = 1.380658E-23/echarge;  //eV/K
 
-function plotn() {
-  d1.length=0;   //this deletes all the points from the previous calculation
-  Vg.length=0;
-  legend.length=0;
-  W=eval(data.W.value);
-  L=eval(data.L.value);
-  tox = eval(data.tox.value)*1E-9;
-  eps_ox = 8.854187817E-12*eval(data.eps_ox.value);
-  C=eps_ox/tox;
-  document.getElementById('C_txt').innerHTML=C.toPrecision(3);
-  mu=eval(data.mu.value);
-  //Vt=eval(data.Vt.value);
-  Vd=eval(data.Vd.value);
-  Vg[1]=eval(data.Vg1.value);
-  Vg[2]=eval(data.Vg2.value);
-  Vg[3]=eval(data.Vg3.value);
-  Vg[4]=eval(data.Vg4.value);
-  Vg[5]=eval(data.Vg5.value);
-  Vg[6]=eval(data.Vg6.value);
-  Vg[7]=eval(data.Vg7.value);
-  Vg[8]=eval(data.Vg8.value);
-  Vg[9]=eval(data.Vg9.value);
-  Vg[10]=eval(data.Vg10.value);
-  output = "";
+function plotn() { 
+    d1.length = 0;  
+    Vg.length = 0;
+    legend.length = 0;
 
+    W = eval(data.W.value);
+    L = eval(data.L.value);
+    tox = eval(data.tox.value) * 1E-9;
+    eps_ox = 8.854187817E-12 * eval(data.eps_ox.value);
+    C = eps_ox / tox;
+    document.getElementById('C_txt').innerHTML = C.toPrecision(3);
+    mu = eval(data.mu.value);
+    Vd = eval(data.Vd.value);
 
-  na = 1E6*eval(data.na.value);
-  Nv = 1E6*eval(data.Nv.value);
-  Nc = 1E6*eval(data.Nc.value);
-  T = eval(data.T.value);
-  Eg = eval(data.Eg.value);
-  phi_m = eval(data.phi_m.value);
-  chi_s = eval(data.chi_s.value);
-  document.getElementById('Eg_txt').innerHTML=Eg.toPrecision(3);
-  eps = 8.854187817E-12*eval(data.eps.value);
-  ni=Math.sqrt(Nc*Nv*Math.pow(T/300,3))*Math.exp(1.6022E-19*(-Eg)/(2*1.380658E-23*T));
-  document.getElementById('ni_txt').innerHTML=(ni/1E6).toPrecision(3);
-  Ev0 = kb*T*Math.log(na/Nv); //valence band far from the oxide
-  phi_s = chi_s + Eg + Ev0; // work function of semiconductor 
-  document.getElementById('phis_txt').innerHTML=(phi_s).toPrecision(3);
-  Vfb = phi_m  - phi_s; // flat band voltage
-  document.getElementById('Vfb_txt').innerHTML=(Vfb).toPrecision(3);
-  Vt = 2*tox*Math.sqrt(eps*na*1.380658E-23*T*Math.log(na/ni))/eps_ox+2*kb*T*Math.log(na/ni);  //threshold voltage in depletion approximation
-  document.getElementById('VT_txt').innerHTML=(Vt+Vfb).toPrecision(3);
-
-  legend = ["V<sub>G</sub> = "+Vg[1],"V<sub>G</sub> = "+Vg[2],"V<sub>G</sub> = "+Vg[3],"V<sub>G</sub> = "+Vg[4],"V<sub>G</sub> = "+Vg[5],"V<sub>G</sub> = "+Vg[6],"V<sub>G</sub> = "+Vg[7],"V<sub>G</sub> = "+Vg[8],"V<sub>G</sub> = "+Vg[9],"V<sub>G</sub> = "+Vg[10]];
-    
-
-  for (j=0; j<10; j++) {
-  if (Vg[j+1]==0) {Vg[j+1]=1E-10;}
-  d1[j]=[];
-  if (Vg[j+1]) {
-    for (k=0; k<201; k++) {
-      V = k*Vd/200;
-      if (V< Vg[j+1]-Vt) {I = mu*1E-4*W*C/L*(Vg[j+1]-Vt-V/2)*V;}
-      else {I = mu*1E-4 * W * C / (2 * L) * (Vg[j+1]-Vt)*(Vg[j+1]-Vt);}
-      if (Vg[j+1] < Vt) { I =0;}
-      d1[j][k]=[V,I*1000];
-      output += Vg[j+1]+"\t"+V+"\t"+(1000*I).toPrecision(6)+"\n";
-    }
-  }
- }
-
-    
-    var data1=[];
-    for (k=0; k<11; k++) {
-      if (Vg[k+1]) {
-        data1[k] = { data: d1[k], color: colors[k], shadowSize:0, lines: {show:true}, label: legend[k] };
-      }
+    for (let i = 1; i <= 10; i++) {
+        Vg[i] = eval(data[`Vg${i}`].value);
     }
 
-    $.plot($("#placeholder"), data1);
-    data2.output.value= output;
+    output = "";
+
+    na = 1E6 * eval(data.na.value);
+    Nv = 1E6 * eval(data.Nv.value);
+    Nc = 1E6 * eval(data.Nc.value);
+    T = eval(data.T.value);
+    Eg = eval(data.Eg.value);
+    phi_m = eval(data.phi_m.value);
+    chi_s = eval(data.chi_s.value);
+    document.getElementById('Eg_txt').innerHTML = Eg.toPrecision(3);
+    eps = 8.854187817E-12 * eval(data.eps.value);
+    
+    ni = Math.sqrt(Nc * Nv * Math.pow(T / 300, 3)) * Math.exp(1.6022E-19 * (-Eg) / (2 * 1.380658E-23 * T));
+    document.getElementById('ni_txt').innerHTML = (ni / 1E6).toPrecision(3);
+
+    Ev0 = kb * T * Math.log(na / Nv);
+    phi_s = chi_s + Eg + Ev0;
+    document.getElementById('phis_txt').innerHTML = phi_s.toPrecision(3);
+
+    Vfb = phi_m - phi_s;
+    document.getElementById('Vfb_txt').innerHTML = Vfb.toPrecision(3);
+
+    Vt = 2 * tox * Math.sqrt(eps * na * 1.380658E-23 * T * Math.log(na / ni)) / eps_ox + 2 * kb * T * Math.log(na / ni);
+    document.getElementById('VT_txt').innerHTML = (Vt + Vfb).toPrecision(3);
+
+    legend = Vg.map((vg, index) => vg ? `V<sub>G</sub> = ${vg}` : "").filter(Boolean);
+    
+    for (let j = 0; j < 10; j++) {
+        if (Vg[j + 1] === 0) Vg[j + 1] = 1E-10;
+        d1[j] = [];
+
+        if (Vg[j + 1]) {
+            for (let k = 0; k < 201; k++) {
+                let V = k * Vd / 200;
+                let I = (V < Vg[j + 1] - Vt) 
+                    ? mu * 1E-4 * W * C / L * (Vg[j + 1] - Vt - V / 2) * V
+                    : mu * 1E-4 * W * C / (2 * L) * (Vg[j + 1] - Vt) ** 2;
+                if (Vg[j + 1] < Vt) I = 0;
+                d1[j][k] = [V, I * 1000];
+                output += `${Vg[j + 1]}\t${V}\t${(1000 * I).toPrecision(6)}\n`;
+            }
+        }
+    }
+
+    let data1 = [];
+    let colors = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"];
+
+    for (let k = 0; k < 10; k++) {
+        if (Vg[k + 1]) {
+            data1.push({
+                data: d1[k],
+                color: colors[k],
+                shadowSize: 0,
+                lines: { show: false },  // Hide lines
+                points: { show: true, radius: 3, symbol: "circle", fill: true, fillColor: colors[k] }, // Show dotted points
+                label: legend[k]
+            });
+        }
+    }
+
+    // Plot the graph
+    let plot = $.plot($("#placeholder"), data1, {
+        grid: { borderWidth: 1, hoverable: true, backgroundColor: "#f8f9fa", markingsStyle: "dashed" },
+        tooltip: { show: true, content: "V: %x, I: %y mA", shifts: { x: 10, y: 20 } }
+    });
+
+    // Tooltip Event Listener
+    let previousPoint = null;
+    $("#placeholder").bind("plothover", function (event, pos, item) {
+        if (item) {
+            if (previousPoint !== item.dataIndex) {
+                previousPoint = item.dataIndex;
+                $("#tooltip").remove();
+
+                let x = item.datapoint[0].toFixed(3);
+                let y = item.datapoint[1].toFixed(3);
+                
+                $("<div id='tooltip'>" + 
+                    "<strong>V:</strong> " + x + " V<br>" +
+                    "<strong>I:</strong> " + y + " mA</div>")
+                    .css({
+                        position: "absolute",
+                        display: "block",
+                        top: item.pageY + 10,
+                        left: item.pageX + 10,
+                        padding: "5px",
+                        "background-color": "#fff",
+                        border: "1px solid #ddd",
+                        "border-radius": "5px",
+                        opacity: 0.9
+                    })
+                    .appendTo("body")
+                    .fadeIn(200);
+            }
+        } else {
+            $("#tooltip").remove();
+            previousPoint = null;
+        }
+    });
+
+    data2.output.value = output;
 }
 
 </script>
